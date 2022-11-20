@@ -22,6 +22,9 @@ const firebaseApp = initializeApp({
 });
 
 export const App = () => {
+  const [logado, setLogado] = useState("false");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const [iden, setInden] = useState("");
   const [descricao, setDesricao] = useState("");
   const [img, setImg] = useState("");
@@ -32,6 +35,8 @@ export const App = () => {
 
   const db = getFirestore(firebaseApp);
   const usersCollectionRef = collection(db, "noticias");
+  const boo = 'estado';
+  const recovery = localStorage.getItem(boo);
 
   async function criarDado() {
     try {
@@ -72,17 +77,22 @@ export const App = () => {
 
   function refresh() {
     window.location.reload()
+
   }
 
   function btnCriar() {
     document.getElementById('criar').style.display = 'block'
     document.getElementById('pos').style.display = 'none'
+    document.getElementById('tabela').style.display = 'none'
+    document.getElementById('logout').style.display = 'none'
   }
-  
-  function alterar(id){
+
+  function alterar(id) {
     document.getElementById('edt').style.display = 'block'
     document.getElementById('pos').style.display = 'none'
-    const num= id
+    document.getElementById('tabela').style.display = 'none'
+    document.getElementById('logout').style.display = 'none'
+    const num = id
     setInden(num)
   }
 
@@ -106,134 +116,194 @@ export const App = () => {
       })
   }
 
+  function logar() {
+    if (email == "adm@adm" && senha == "adm") {
+      document.getElementById('login').style.display = 'none'
+      document.getElementById('main').style.display = 'block'
+      alert("Logado Com Sucesso")
+      setLogado('true')
+      localStorage.setItem(boo, 'true')
+    }
+    else {
+      alert("E-mail ou Senha incorretos")
+    }
+  }
+  function log() {
+    
+    if (recovery == 'true') {
+      document.getElementById('main').style.display = 'block'
+      document.getElementById('login').style.display = 'none'
+    }
+
+  }
+
+  function exit(){
+    
+    localStorage.clear()
+    refresh()
+  }
 
 
   return (
-    <div>
-      <table id='tabela' border="1">
-        <tr>
-          <td><b>Descriçao</b></td>
-          <td><b>Imagem</b></td>
-          <td><b>Link</b></td>
-          <td><b>Tema</b></td>
-          <td><b>Titulo</b></td>
-          <td><b>Botões</b></td>
+    <div id="geral">
+      <div id="login">
+        <h2>LOGIN</h2>
+        <input
+          type="text"
+          placeholder="E-mail"
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <input
+          type="text"
+          placeholder="Senha"
+          onChange={(e) => setSenha(e.target.value)}
+        />
+        <br />
+        <button id="btnLogin" onClick={ ()=>logar()}>Entrar</button>
+        {setTimeout(log,0).hidden}
+       
+      </div>
+      
 
-        </tr>
-        {users.map((noticia) => {
-          return (
+      <div id="main" hidden>
+        <table id='tabela' border="1" className="tab">
+          <thead>
             <tr>
-              <td>{noticia.descricao}</td>
-              <td>{noticia.img}</td>
-              <td>{noticia.link}</td>
-              <td>{noticia.tema}</td>
-              <td>{noticia.titulo}</td>
-              <td>
-                <button onClick={() => deleteUser(noticia.id)}>Deletar</button>
-                <button onClick={() => alterar(noticia.id)}>Editar</button>
-              </td>
+              <td><b>Descriçao</b></td>
+              <td><b>Imagem</b></td>
+              <td><b>Link</b></td>
+              <td><b>Tema</b></td>
+              <td><b>Titulo</b></td>
+              <td><b>Botões</b></td>
 
             </tr>
-          );
-        })}
-      </table>
+          </thead>
 
-      <div id="criar" hidden>
+          {users.map((noticia) => {
+            return (
+              <tbody>
+                <tr>
+                  <td>{noticia.descricao}</td>
+                  <td>{noticia.img}</td>
+                  <td>{noticia.link}</td>
+                  <td>{noticia.tema}</td>
+                  <td>{noticia.titulo}</td>
+                  <td>
+                    <button id="btnDeletar" onClick={() => deleteUser(noticia.id)}>Deletar</button>
+                    <button id="btnEditar" onClick={() => alterar(noticia.id)}>Editar</button>
+                  </td>
 
-        <h2>Cadastrar Notícia</h2>
-        <input
-          type="text"
-          placeholder="Descrição"
-          value={descricao}
-          onChange={(e) => setDesricao(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Imagem"
-          value={img}
-          onChange={(e) => setImg(e.target.value)}
+                </tr>
+              </tbody>
 
-        />
+            );
+          })}
+        </table>
 
-        <input
-          type="text"
-          placeholder="Link"
-          value={link}
-          onChange={(e) => setLink(e.target.value)}
+        <div id="criar" hidden>
 
-        />
-        <label htmlFor="Tema"> Tema:
+          <h2>Cadastrar Notícia</h2>
+          <input
+            type="text"
+            placeholder="Descrição"
+            value={descricao}
+            onChange={(e) => setDesricao(e.target.value)}
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="Imagem"
+            value={img}
+            onChange={(e) => setImg(e.target.value)}
+
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="Link"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
+
+          />
+          <br />
           <select name="tema" onChange={(e) => setTema(e.target.value)}>
-            <option disabled selected>Selecione </option>
+            <option disabled selected>Tema </option>
             <option value="esportes">Esportes </option>
             <option value="politica">Política</option>
             <option value="entretenimento">Entretenimento</option>
             <option value="famosos"> Famosos</option>
           </select>
-        </label>
 
 
-        <input
-          type="text"
-          placeholder="Título"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
+          <br />
+          <input
+            type="text"
+            placeholder="Título"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
 
-        />
-        <button onClick={criarDado}>Criar Notícia</button>
-      </div>
+          />
+          <br />
+          <button onClick={criarDado}>Criar Notícia</button>
+        </div>
 
-      <div id="edt" hidden>
+        <div id="edt" hidden>
 
-        <h2>Editar Notícia</h2>
-        <input
-          type="text"
-          placeholder="Descrição"
-          value={descricao}
-          onChange={(e) => setDesricao(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Imagem"
-          value={img}
-          onChange={(e) => setImg(e.target.value)}
+          <h2>Editar Notícia</h2>
+          <input
+            type="text"
+            placeholder="Descrição"
+            value={descricao}
+            onChange={(e) => setDesricao(e.target.value)}
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="Imagem"
+            value={img}
+            onChange={(e) => setImg(e.target.value)}
 
-        />
+          />
+          <br />
+          <input
+            type="text"
+            placeholder="Link"
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
 
-        <input
-          type="text"
-          placeholder="Link"
-          value={link}
-          onChange={(e) => setLink(e.target.value)}
-
-        />
-        <label htmlFor="Tema"> Tema:
+          />
+          <br />
           <select name="tema" onChange={(e) => setTema(e.target.value)}>
-            <option disabled selected>Selecione </option>
+            <option disabled selected>Tema </option>
             <option value="esportes">Esportes </option>
             <option value="politica">Política</option>
             <option value="entretenimento">Entretenimento</option>
             <option value="famosos"> Famosos</option>
           </select>
-        </label>
 
 
-        <input
-          type="text"
-          placeholder="Título"
-          value={titulo}
-          onChange={(e) => setTitulo(e.target.value)}
+          <br />
+          <input
+            type="text"
+            placeholder="Título"
+            value={titulo}
+            onChange={(e) => setTitulo(e.target.value)}
 
-        />
-        <button onClick={() => editarDado(iden)}>Editar Notícia</button>
+          />
+          <button onClick={() => editarDado(iden)}>Editar Notícia</button>
+        </div>
+
+        <div id="pos">
+          <button id="btnCriar" onClick={() => btnCriar()}> Criar<br />Notícias</button>
+        </div>
+        <div id="logout">
+          <button id="btnSair" onClick={() => exit()}> Sair</button>
+        </div>
+
+
+
       </div>
-
-      <div id="pos">
-        <button name="cent" onClick={() => btnCriar()}> Criar Notícias</button>
-      </div>
-
-
-
     </div>
   );
 
