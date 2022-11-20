@@ -292,6 +292,7 @@ export const App = () => {
             onChange={(e) => setTitulo(e.target.value)}
 
           />
+          <br />
           <button onClick={() => editarDado(iden)}>Editar Notícia</button>
           <button id="btnDeletar" onClick={()=> refresh()}>Cancelar</button>
         </div>
