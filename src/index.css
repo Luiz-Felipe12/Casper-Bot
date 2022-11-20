@@ -1,0 +1,10 @@
+#pos{
+    position:absolute; 
+    top:80%;
+    left: 90%;
+    border-radius: 50%;
+    font-size: 30px;
+}
+#tabela{
+    background-color: aqua;
+}
