@@ -246,6 +246,7 @@ export const App = () => {
           />
           <br />
           <button onClick={criarDado}>Criar Notícia</button>
+          <button id="btnDeletar" onClick={()=> refresh()}>Cancelar</button>
         </div>
 
         <div id="edt" hidden>
@@ -292,10 +293,11 @@ export const App = () => {
 
           />
           <button onClick={() => editarDado(iden)}>Editar Notícia</button>
+          <button id="btnDeletar" onClick={()=> refresh()}>Cancelar</button>
         </div>
 
         <div id="pos">
-          <button id="btnCriar" onClick={() => btnCriar()}> Criar<br />Notícias</button>
+          <button id="btnCriar" onClick={() => btnCriar()}> Criar<br />Notícia</button>
         </div>
         <div id="logout">
           <button id="btnSair" onClick={() => exit()}> Sair</button>
