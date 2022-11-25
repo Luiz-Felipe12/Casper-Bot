@@ -168,14 +168,15 @@ export const App = () => {
 
       <div id="main" hidden>
         <table id='tabela' border="1" className="tab">
+
           <thead>
             <tr>
-              <td><b>Descriçao</b></td>
-              <td><b>Imagem</b></td>
-              <td><b>Link</b></td>
-              <td><b>Tema</b></td>
-              <td><b>Titulo</b></td>
-              <td><b>Botões</b></td>
+              <td width="16,6%"><b>Descriçao</b></td>
+              <td width="16,6%"><b>Imagem</b></td>
+              <td width="16,6%"><b>Link</b></td>
+              <td width="16,6%"><b>Tema</b></td>
+              <td width="16,6%"><b>Titulo</b></td>
+              <td width="16,6%"><b>Botões</b></td>
 
             </tr>
           </thead>
@@ -184,12 +185,12 @@ export const App = () => {
             return (
               <tbody>
                 <tr>
-                  <td>{noticia.descricao}</td>
-                  <td>{noticia.img}</td>
-                  <td>{noticia.link}</td>
-                  <td>{noticia.tema}</td>
-                  <td>{noticia.titulo}</td>
-                  <td>
+                  <td width="16,6%"><center>{noticia.descricao}</center></td>
+                  <td width="16,6%"><center>{noticia.img}</center></td>
+                  <td width="16,6%">{noticia.link}</td>
+                  <td width="16,6%">{noticia.tema}</td>
+                  <td width="16,6%">{noticia.titulo}</td>
+                  <td width="16,6%">
                     <button id="btnDeletar" onClick={() => deleteUser(noticia.id)}>Deletar</button>
                     <button id="btnEditar" onClick={() => alterar(noticia.id)}>Editar</button>
                   </td>

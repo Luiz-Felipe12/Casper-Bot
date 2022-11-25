@@ -12,38 +12,33 @@
  
 }
 #tabela {
-  display: block;
+  table-layout: fixed ;
+  display: ruby;
   background-color: white;
   width: 100%;
+  max-width: 100%;
   border-spacing: 0;
   border: 2px solid black;
 }
 thead tr th {
-    height: 40px; 
-    line-height: 40px;
+    height: 60px; 
+    line-height: 60px;
 }
   
-table.scrolldown tbody {
-      
-    /* Set the height of table body */
-    height: 50px; 
-      
-    /* Set vertical scroll */
-    overflow-y: auto;
-      
-    /* Hide the horizontal scroll */
-    overflow-x: hidden; 
-}
   
 tbody { 
     border-top: 2px solid black;
+    max-width: 100px;
+
 }
   
 tbody td, thead th {
-    width : 200px;
+    width : 100%;
     border-right: 2px solid black;
 }
 td {
+  overflow: hidden;
+    width: 100%;
     text-align:center;
 }
 
