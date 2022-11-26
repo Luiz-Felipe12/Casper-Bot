@@ -24,7 +24,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
       },
     ]});
   }
-/*
+
   function exibirPolitica(agent){
     return db.collection("noticias").get().then(function(documents){
       
@@ -111,8 +111,8 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
       
     });//END catch
   }
-*/
-  function exibirPolitica(agent){
+
+ /* function exibirPolitica(agent){
     return db.collection("noticias").get().then(function(documents){
       let response = "Mostrando Noticias sobre Política";
       let cont=0;
@@ -137,7 +137,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
 })
 }
 
-/*
+*/
   function exibirFamosos(agent){
     return db.collection("noticias").get().then(function(documents){
       
@@ -224,9 +224,9 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
       
     });//END catch
   }
-*/
 
-function exibirFamosos(agent){
+
+/*function exibirFamosos(agent){
   return db.collection("noticias").get().then(function(documents){
     let response = "Mostrando Noticias sobre Famosos";
     let cont=0;
@@ -250,7 +250,7 @@ agent.add(response);
 
 })
 }
-
+*/
 
   function exibirEsportes(agent){
     return db.collection("noticias").get().then(function(documents){
@@ -339,7 +339,7 @@ agent.add(response);
     });//END catch
   }
 
-  /*function exibirEntretenimento(agent){
+  function exibirEntretenimento(agent){
     return db.collection("noticias").get().then(function(documents){
       
    
@@ -424,9 +424,9 @@ agent.add(response);
       agent.add("ERRO AO RECONHECER O SERVIDOS");
       
     });//END catch
-  } */
+  } 
 
-  function exibirEntretenimento(agent){
+ /* function exibirEntretenimento(agent){
     return db.collectsion("noticias").get().then(function(documents){
       let response = "Mostrando Noticias sobre Entretenimento";
       let cont=0;
@@ -450,7 +450,7 @@ agent.add(response);
   
   })
   }
-
+  */
 
   
 
